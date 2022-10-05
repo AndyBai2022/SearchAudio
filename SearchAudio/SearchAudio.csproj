@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+	  <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>image\music_audio_7173.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="cut.png" />
+    <None Remove="image\cut.png" />
+    <None Remove="image\norecord.png" />
+    <None Remove="image\play.png" />
+    <None Remove="image\snail.gif" />
+    <None Remove="play.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid>
+    </COMReference>
+    <COMReference Include="{bee4bfec-6683-3e67-9167-3c0cbc68f40a}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>bee4bfec-6683-3e67-9167-3c0cbc68f40a</Guid>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="image\music_audio_7173.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.4.0" />
+    <PackageReference Include="NAudio" Version="2.1.0" />
+    <PackageReference Include="Spire.XLS" Version="12.8.1" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="cut.png" />
+    <Resource Include="image\cut.png" />
+    <Resource Include="image\norecord.png" />
+    <Resource Include="image\play.png" />
+    <Resource Include="image\snail.gif" />
+    <Resource Include="play.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

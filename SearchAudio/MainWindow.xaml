@@ -1,0 +1,202 @@
+﻿<Window x:Class="SearchAudio.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SearchAudio"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        gif:ImageBehavior.AnimateInDesignMode="True"
+        mc:Ignorable="d"
+        Title="One Story A Day" Height="600" Width="820" MouseDown="MouseDown_Click" ResizeMode="NoResize">
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="136"/>
+            <ColumnDefinition Width="580"/>
+            <ColumnDefinition Width="74"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="334"/>
+            <RowDefinition Height="66"/>
+            
+        </Grid.RowDefinitions>
+        
+
+        <Label Content="Search Audio by Text" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="Black" Grid.Column="1"/>
+        <Label Content="TimeMap Folder:" Grid.Row="1" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBox x:Name="dataMapFilePath" Width="560" Height="26" VerticalAlignment="Center" ToolTip="all the excel files in the folder will be selected" 
+                 VerticalContentAlignment="Center" Text="Z:\Users\Bai\SearchAudio\Files\timeinfo\osader"
+                 Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="10 0 0 0"></TextBox>
+        <Button Grid.Row="1" Grid.Column="2" Content="Browse" Width="60" Height="26" Cursor="Hand" HorizontalAlignment="Left" Click="selectDataFileClick"/>
+
+        <Label Content="By:" Grid.Row="2" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        
+        <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="10">
+            <RadioButton FontSize="20" x:Name="byWord" VerticalContentAlignment="Center" IsChecked="True">Word</RadioButton>
+            <Label Content="   "/>
+            <RadioButton FontSize="20" x:Name="bySentence" VerticalContentAlignment="Center">Sentence</RadioButton>
+
+        </WrapPanel>
+
+        <Label Content="Text:" FontSize="16" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBox x:Name="keyword" Text="dragon" SpellCheck.IsEnabled="True" Language="en-US" Width="560" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="26"
+                 Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="10 0 0 0"></TextBox>
+        <Button Grid.Row="3" Grid.Column="3" Content="Search" Width="60" Height="26" HorizontalAlignment="Left" Cursor="Hand" Click="BtnSearchClick" TabIndex="1" IsDefault="True"/>
+
+        <Label Content="Result:" FontSize="16" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        
+        <DataGrid Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="1" Name="SearchResultGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" GridLinesVisibility="Horizontal" 
+                  HorizontalGridLinesBrush="LightGray"
+                  FrozenColumnCount="1">
+            <DataGrid.Columns>
+                <!--<DataGridComboBoxColumn Header="Series" SelectedValueBinding="{Binding SeriesID}" Width="85" x:Name="SName"></DataGridComboBoxColumn>-->
+                <!--<DataGridTextColumn x:Name="sn" IsReadOnly="True" Header="Series#" Binding="{Binding SeriesID}"></DataGridTextColumn>-->
+                <DataGridTextColumn Header="Series" Binding="{Binding Series}" Width="56" x:Name="SName">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment"    Value="Center" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="Book" Width="46" Binding="{Binding BookNumber}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment"    Value="Center" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <!--//story number-->
+                <DataGridTextColumn IsReadOnly="True" Header="Story" Width="46" Binding="{Binding StoryNumber}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <!--//context-->
+                <!--<DataGridTextColumn IsReadOnly="True" Header="Context" Width="280" Binding="{Binding Context}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            --><!--<Setter Property="TextBlock.Foreground" Value="Red"/>--><!--
+                            <Setter Property="TextBlock.TextAlignment" Value="Left"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>-->
+
+
+
+                <!--三个run之间不能留有空格，eg:搜索关键词 red，如果在“Book”中搜索"o" 则目前仅显示拆分后的第一个,Bo-->
+                <DataGridTemplateColumn Width="*" IsReadOnly="True">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock FontWeight="Bold" Text="Context"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap">
+                                <Run Foreground="Black" Text="{Binding BeforeKeyWords}"/><Run Foreground="Red" Text="{Binding KeyWords}"/><Run Foreground="Black" Text="{Binding AfterKeyWords}"/>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+
+                <!--//begin time-->
+                <DataGridTemplateColumn Header="Begin" Width="60">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment"    Value="Center" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <toolkit:DecimalUpDown Value="{Binding Path=BeginTime, UpdateSourceTrigger=PropertyChanged}" Increment="0.01" Minimum="0"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Header="End" Width="60">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment"    Value="Center" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <toolkit:DecimalUpDown Value="{Binding Path=EndTime, UpdateSourceTrigger=PropertyChanged}" Increment="0.01" Minimum="0"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridTextColumn Header="End" Width="60" Binding="{Binding EndTime}"></DataGridTextColumn>-->
+                
+                
+                <DataGridTemplateColumn Header="Play">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment"    Value="Center" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="24" Background="White" BorderBrush="White" Cursor="Hand" Click="playAudio">
+                                <Image Width="16" Source="/play.png"></Image></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Cut">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment"    Value="Center" />
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="24" Background="White" BorderBrush="White" Cursor="Hand" Click="cutAudio">
+                                <Image Width="16" Source="/cut.png"></Image>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Image x:Name="loading" gif:ImageBehavior.AnimatedSource="image/snail.gif" Grid.Row="4" Grid.Column="1" Visibility="Hidden"/>
+        <Image x:Name="norecord" Source="image/norecord.png" Grid.Row="4" Grid.Column="1" Visibility="Hidden"/>
+
+        <Label Name="resultCount" Grid.Column="1" Grid.Row="5"  />
+        <Label x:Name="lblCounter" Content="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="Microsoft Tai Le" Width="272" HorizontalContentAlignment="Center"/>
+        <!--<ProgressBar x:Name="progressbar" HorizontalAlignment="Left" Height="32" Margin="0,187,0,0" VerticalAlignment="Top" Width="292"/>-->
+    </Grid>
+</Window>
